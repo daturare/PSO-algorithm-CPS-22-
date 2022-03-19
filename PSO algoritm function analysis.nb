@@ -1,0 +1,2162 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     98123,       2154]
+NotebookOptionsPosition[     96452,       2124]
+NotebookOutlinePosition[     96889,       2141]
+CellTagsIndexPosition[     96846,       2138]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.856345701731085*^9, 3.856345745636156*^9}, {
+   3.856346603321953*^9, 3.856346604845172*^9}, {3.8563522729907093`*^9, 
+   3.856352274395144*^9}, 3.856618209386059*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"58dd254d-bfc8-4ff6-88ef-5cf4e2f8316f"],
+
+Cell[CellGroupData[{
+
+Cell["PSO Application In Optimization Problem", "Title",
+ CellChangeTimes->{{3.811508363051907*^9, 3.811508394789912*^9}, {
+  3.811602134805504*^9, 3.81160214016238*^9}, {3.856615940203567*^9, 
+  3.856615975701181*^9}, {3.856682310002668*^9, 3.856682371688898*^9}},
+ FontSize->18,
+ Background->RGBColor[
+  1, 0.9, 0.8],ExpressionUUID->"ecf01546-25d8-41e8-a9af-2cccce19ce35"],
+
+Cell["Test Functions", "Text",
+ CellChangeTimes->{{3.856351727756556*^9, 3.8563517596078243`*^9}, {
+  3.856682258134403*^9, 3.856682267465577*^9}},
+ Background->RGBColor[
+  0.9, 1, 1],ExpressionUUID->"bef247d5-be35-4551-954a-2de3a015a441"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Rastrigin", " ", "Function"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"rastr", "[", " ", 
+     RowBox[{
+     "varAmount0_", ",", "particlesAmount0_", ",", " ", 
+      "particlesPosition0_"}], "]"}], ":=", " ", 
+    RowBox[{"Module", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"var", " ", "=", " ", "varAmount0"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"par", " ", "=", " ", "particlesAmount0"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"pos", " ", "=", "particlesPosition0"}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"particlesValue0", " ", "=", " ", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+         RowBox[{"i", "<=", "par"}], ",", 
+         RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"vector0", " ", "=", " ", 
+           RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"j", " ", "=", " ", "1"}], ",", " ", 
+            RowBox[{"j", "<=", "var"}], ",", " ", 
+            RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"vector0", " ", "=", " ", 
+             RowBox[{"Append", "[", 
+              RowBox[{"vector0", ",", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"pos", "\[LeftDoubleBracket]", 
+                   RowBox[{"i", ",", "j"}], "\[RightDoubleBracket]"}], "^", 
+                  "2"}], " ", "-", " ", 
+                 RowBox[{"10", "*", 
+                  RowBox[{"Cos", "[", 
+                   RowBox[{"2", "*", "\[Pi]", "*", " ", 
+                    RowBox[{"pos", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "j"}], "\[RightDoubleBracket]"}]}], 
+                   "]"}]}]}], ")"}]}], "]"}]}]}], "\[IndentingNewLine]", 
+           "]"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"vector0", " ", "=", 
+           RowBox[{
+            RowBox[{"Total", "@", "vector0"}], " ", "+", 
+            RowBox[{"10", "*", "var"}]}]}], " ", ";", "\[IndentingNewLine]", 
+          RowBox[{"particlesValue0", " ", "=", "  ", 
+           RowBox[{"Append", "[", 
+            RowBox[{"particlesValue0", ",", " ", "vector0"}], " ", "]"}]}], 
+          ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"particlesValue", "=", "particlesValue0"}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"particlesPosition", " ", "=", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Akley", " ", "Function"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ekl", "[", 
+     RowBox[{"particlesAmount0_", ",", "particlesPosition0_"}], "]"}], " ", ":=", 
+    RowBox[{"Module", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"par", " ", "=", " ", "particlesAmount0"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"pos", " ", "=", "particlesPosition0"}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"particlesValue", " ", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+         RowBox[{"i", "<=", "par"}], ",", 
+         RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"particlesValue", "=", 
+          RowBox[{"Append", "[", " ", 
+           RowBox[{"particlesValue", ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"-", 
+                 RowBox[{"Exp", "[", 
+                  RowBox[{"0.5", "*", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Cos", "[", 
+                    RowBox[{"2", "\[Pi]", "*", 
+                    RowBox[{"pos", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}]}], 
+                    "]"}], "+", 
+                    RowBox[{"Cos", "[", 
+                    RowBox[{"2", "\[Pi]", "*", 
+                    RowBox[{"pos", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}]}], 
+                    "]"}]}], ")"}]}], "]"}]}], ")"}], "-", 
+               RowBox[{"(", 
+                RowBox[{"20", "*", 
+                 RowBox[{"Exp", "[", 
+                  RowBox[{
+                   RowBox[{"-", "0.2"}], 
+                   RowBox[{"Sqrt", "[", 
+                    RowBox[{"(", 
+                    RowBox[{"0.5", "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"pos", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], "^", 
+                    "2"}], "+", 
+                    RowBox[{
+                    RowBox[{"pos", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}], "^", 
+                    "2"}]}], ")"}]}], ")"}], "]"}]}], "]"}]}], ")"}], "+", 
+               RowBox[{"(", 
+                RowBox[{"Exp", "[", "1", "]"}], ")"}]}], ")"}], "+", "20"}]}],
+            "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}], 
+       ";", "\[IndentingNewLine]", "particlesValue"}]}], 
+     "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Sphere", " ", "Function"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sphere", " ", "[", 
+     RowBox[{
+     "varAmount0_", ",", "particlesAmount0_", ",", " ", 
+      "particlesPosition0_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"var", " ", "=", " ", "varAmount0"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"par", " ", "=", " ", "particlesAmount0"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"pos", " ", "=", "particlesPosition0"}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"particlesValue0", " ", "=", " ", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+         RowBox[{"i", "<=", "par"}], ",", 
+         RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"vector0", " ", "=", " ", 
+           RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"j", " ", "=", " ", "1"}], ",", " ", 
+            RowBox[{"j", "<=", "var"}], ",", " ", 
+            RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"vector0", " ", "=", " ", 
+             RowBox[{"Append", "[", 
+              RowBox[{"vector0", ",", " ", 
+               RowBox[{
+                RowBox[{"pos", "\[LeftDoubleBracket]", 
+                 RowBox[{"i", ",", "j"}], "\[RightDoubleBracket]"}], "^", 
+                "2"}]}], " ", "]"}]}]}], "\[IndentingNewLine]", "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"vector0", " ", "=", 
+           RowBox[{"Total", "@", "vector0"}]}], "  ", ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"particlesValue0", " ", "=", "  ", 
+           RowBox[{"Append", "[", 
+            RowBox[{"particlesValue0", ",", " ", "vector0"}], " ", "]"}]}], 
+          ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+       "particlesValue", "=", "\[IndentingNewLine]", "particlesValue0"}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Booth", " ", "Function"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"but", "[", 
+     RowBox[{"particlesAmount0_", ",", "particlesPosition0_"}], "]"}], " ", ":=", 
+    RowBox[{"Module", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"par", " ", "=", " ", "particlesAmount0"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"pos", " ", "=", "particlesPosition0"}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"particlesValue", " ", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+         RowBox[{"i", "<=", "par"}], ",", 
+         RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"particlesValue", "=", 
+          RowBox[{"Append", "[", " ", 
+           RowBox[{"particlesValue", ",", "\[IndentingNewLine]", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"pos", "\[LeftDoubleBracket]", 
+                  RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], "+", 
+                 RowBox[{"2", 
+                  RowBox[{"pos", "\[LeftDoubleBracket]", 
+                   RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}]}], "-", 
+                 "7"}], ")"}], "^", "2"}], " ", "+", " ", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"2", 
+                  RowBox[{"pos", "\[LeftDoubleBracket]", 
+                   RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}]}], "+", 
+                 
+                 RowBox[{"pos", "\[LeftDoubleBracket]", 
+                  RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}], "-", 
+                 "5"}], ")"}], "^", "2"}]}], " ", ")"}]}], 
+           "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}], 
+       ";", "\[IndentingNewLine]", "particlesValue"}]}], 
+     "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Beal", " ", "Function"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"bill", "[", 
+     RowBox[{"particlesAmount0_", ",", "particlesPosition0_"}], "]"}], " ", ":=", 
+    RowBox[{"Module", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"par", " ", "=", " ", "particlesAmount0"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"pos", " ", "=", "particlesPosition0"}]}], 
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"particlesValue", " ", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+         RowBox[{"i", "<=", "par"}], ",", 
+         RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"particlesValue", "=", 
+          RowBox[{"Append", "[", " ", 
+           RowBox[{"particlesValue", ",", "\[IndentingNewLine]", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"1.5", " ", "-", " ", 
+                 RowBox[{"pos", "\[LeftDoubleBracket]", 
+                  RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], "+", 
+                 RowBox[{
+                  RowBox[{"pos", "\[LeftDoubleBracket]", 
+                   RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], "*", 
+                  RowBox[{"pos", "\[LeftDoubleBracket]", 
+                   RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}]}]}], 
+                " ", ")"}], "^", "2"}], " ", "+", " ", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2.25", " ", "-", " ", 
+                 RowBox[{"pos", "\[LeftDoubleBracket]", 
+                  RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], "+", 
+                 RowBox[{
+                  RowBox[{"pos", "\[LeftDoubleBracket]", 
+                   RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], "*", 
+                  RowBox[{"(", 
+                   RowBox[{
+                    RowBox[{"pos", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}], "^", 
+                    "2"}], ")"}]}]}], " ", ")"}], "^", "2"}], " ", "+", " ", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"2.625", " ", "-", " ", 
+                 RowBox[{"pos", "\[LeftDoubleBracket]", 
+                  RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], "+", 
+                 RowBox[{
+                  RowBox[{"pos", "\[LeftDoubleBracket]", 
+                   RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}], "*", 
+                  RowBox[{"(", 
+                   RowBox[{
+                    RowBox[{"pos", "\[LeftDoubleBracket]", 
+                    RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}], "^", 
+                    "3"}], ")"}]}]}], " ", ")"}], "^", "2"}]}], " ", ")"}]}], 
+           "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}], 
+       ";", "\[IndentingNewLine]", "particlesValue"}]}], 
+     "\[IndentingNewLine]", "]"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.856342869355255*^9, 3.8563428920475883`*^9}, {
+   3.856342962153757*^9, 3.8563430665836287`*^9}, {3.856343463939746*^9, 
+   3.856343561242558*^9}, {3.856343598026095*^9, 3.8563436341838303`*^9}, {
+   3.856343668438387*^9, 3.856343678501608*^9}, {3.856343785210559*^9, 
+   3.856343829850771*^9}, {3.85634388118335*^9, 3.8563440564746943`*^9}, {
+   3.856344120234297*^9, 3.856344140889532*^9}, {3.856344189167968*^9, 
+   3.8563442168065767`*^9}, {3.856344261211275*^9, 3.8563443134113407`*^9}, {
+   3.856344355068581*^9, 3.856344384653883*^9}, {3.856344446906662*^9, 
+   3.856344470420019*^9}, {3.85634455251404*^9, 3.8563445583449078`*^9}, {
+   3.856344653232861*^9, 3.8563446837598658`*^9}, 3.856344736746636*^9, {
+   3.856344797544479*^9, 3.8563448256265793`*^9}, {3.8563449070999002`*^9, 
+   3.856344912596874*^9}, {3.856344988806148*^9, 3.856345025563222*^9}, {
+   3.85634514155265*^9, 3.8563451687897463`*^9}, {3.856345230878089*^9, 
+   3.856345245061419*^9}, {3.8563452849801683`*^9, 3.856345368494759*^9}, {
+   3.856345451410925*^9, 3.856345470230081*^9}, {3.856345541239615*^9, 
+   3.8563456526996326`*^9}, {3.856345692504778*^9, 3.856345698962716*^9}, {
+   3.8563458807603903`*^9, 3.856345930795588*^9}, {3.85634597517273*^9, 
+   3.856346025835887*^9}, {3.856346058803644*^9, 3.856346066525804*^9}, 
+   3.8563461554166927`*^9, {3.8563462716572857`*^9, 3.856346317051429*^9}, {
+   3.856346386830907*^9, 3.8563464486780577`*^9}, {3.856346487847447*^9, 
+   3.856346489068059*^9}, {3.8563465217432537`*^9, 3.856346585450615*^9}, {
+   3.856346620306897*^9, 3.856346944896682*^9}, {3.856347011695537*^9, 
+   3.856347095711186*^9}, {3.856347153018653*^9, 3.8563471534754887`*^9}, {
+   3.85634730011448*^9, 3.8563473917832727`*^9}, {3.856347470959826*^9, 
+   3.8563475092199287`*^9}, {3.856347543516547*^9, 3.856347908709*^9}, {
+   3.8563517617230787`*^9, 3.856351765250121*^9}, 3.856431669857563*^9, {
+   3.8564364591844807`*^9, 3.856436470634097*^9}, {3.856437950053811*^9, 
+   3.856437954444768*^9}, {3.856438001886835*^9, 3.856438241684536*^9}, {
+   3.856438328737176*^9, 3.856438347692265*^9}, {3.856438761235814*^9, 
+   3.8564389085481033`*^9}, {3.8565328465095377`*^9, 3.8565328469508038`*^9}, 
+   3.8566114377908297`*^9, {3.8566823905674887`*^9, 3.856682514925993*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"73e9e8ce-b9ed-4ccf-ac27-314ed04a80f3"],
+
+Cell["Classical algorithm for the Rastrigin function", "Text",
+ CellChangeTimes->{{3.856351727756556*^9, 3.856351795980196*^9}, {
+  3.85662907223169*^9, 3.856629072586001*^9}, {3.8566825592506104`*^9, 
+  3.856682561138111*^9}},
+ Background->RGBColor[
+  0.9, 1, 1],ExpressionUUID->"a490920b-35c1-4b5e-8d3d-18751ed81cf9"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bestValueVector", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestPositionVector", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestParticlesPositionVector", " ", "=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestValueVectorAver", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestPositionVectorAver", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestParticlesValueVectorAver", "  ", "=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"finalbestValueVectorAver", " ", "=", 
+   RowBox[{"{", "}"}]}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Timing", "[", 
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"counter", " ", "=", " ", "1"}], ",", " ", 
+     RowBox[{"counter", " ", "<=", "100"}], ",", " ", 
+     RowBox[{"counter", "++"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"iterationAmount", " ", "=", " ", "100"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"variablesAmount", " ", "=", " ", "2"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"particlesAmount", " ", "=", "1000"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"pMin", " ", "=", " ", 
+       RowBox[{"-", "5.12"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"pMax", " ", "=", " ", "5.12"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"k", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"w", " ", "=", " ", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"c1", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"c2", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"particlesPosition", " ", "=", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"RandomReal", "[", 
+          RowBox[{"{", 
+           RowBox[{"pMin", ",", "pMax"}], "}"}], "]"}], ",", " ", 
+         "particlesAmount", ",", " ", "variablesAmount"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"particlesVelocity", " ", "=", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{"0", ",", " ", "particlesAmount", ",", "variablesAmount"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"particlesValue", " ", "=", 
+       RowBox[{"rastr", "[", 
+        RowBox[{
+        "variablesAmount", ",", "particlesAmount", ",", "particlesPosition"}],
+         "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestValue", " ", "=", " ", 
+       RowBox[{"Min", "@", "particlesValue"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestPosition", " ", "=", " ", 
+       RowBox[{"Part", "[", 
+        RowBox[{"particlesPosition", ",", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"Flatten", "@", " ", 
+            RowBox[{"Position", "[", 
+             RowBox[{"particlesValue", ",", "bestValue"}], "]"}]}], ")"}], 
+          "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesValue", "=", " ", "particlesValue"}], " ", ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesPosition", " ", "=", "particlesPosition"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"bestValueVector", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestPositionVector", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesPositionVector", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"k", " ", "=", " ", "1"}], ",", 
+        RowBox[{"k", " ", "<", " ", 
+         RowBox[{"iterationAmount", "-", "1"}]}], ",", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+            RowBox[{"i", " ", "\[LessEqual]", " ", "particlesAmount"}], ",", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"For", "[", 
+               RowBox[{
+                RowBox[{"j", "=", " ", "1"}], ",", " ", 
+                RowBox[{"j", "\[LessEqual]", " ", "variablesAmount"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{"{", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], "]"}], 
+                   "=", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"w", "*", " ", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], 
+                    "]"}]}], " ", "+", " ", 
+                    RowBox[{"c1", " ", "*", 
+                    RowBox[{"RandomReal", "[", "]"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesPosition", ",", "i", ",", "j"}], 
+                    "]"}], "-", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], 
+                    "]"}]}], ")"}]}], "+", 
+                    RowBox[{"c2", "*", " ", 
+                    RowBox[{"RandomReal", "[", "]"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"bestPosition", ",", "j"}], "]"}], "-", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], 
+                    "]"}]}], ")"}]}]}], ")"}]}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"d", "=", " ", 
+                   RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    "+", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], 
+                    "]"}]}]}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{"d", "<", "pMin"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "pMin"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"d", ">", "pMax"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "pMax"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "d"}]}], "]"}]}], "\[IndentingNewLine]", 
+                   "]"}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"j", "++"}]}], "\[IndentingNewLine]", "}"}]}], 
+               "\[IndentingNewLine]", "]"}], ",", " ", 
+              RowBox[{"i", "++"}]}], "\[IndentingNewLine]", "}"}]}], 
+           "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"particlesValue", " ", "=", " ", 
+           RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"particlesValue", " ", "=", " ", 
+           RowBox[{"rastr", "[", 
+            RowBox[{
+            "variablesAmount", ",", "particlesAmount", ",", 
+             "particlesPosition"}], "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+            RowBox[{"i", " ", "\[LessEqual]", " ", "particlesAmount"}], ",", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"t", " ", "=", " ", 
+               RowBox[{"Part", "[", 
+                RowBox[{"particlesValue", ",", "i"}], "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Part", "[", 
+                  RowBox[{"bestParticlesValue", ",", "i"}], "]"}], ">", " ", 
+                 "t"}], ",", "\[IndentingNewLine]", 
+                RowBox[{"{", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesValue", ",", "i"}], "]"}], "=", " ",
+                    "t"}], ",", "\[IndentingNewLine]", 
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesPosition", ",", " ", "i"}], "]"}], 
+                   " ", "=", " ", 
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i"}], "]"}]}]}], 
+                 "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}],
+               ",", "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{"bestValue", " ", ">", " ", "t"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"bestValue", " ", "=", " ", "t"}], ",", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"bestPosition", " ", "=", " ", 
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i"}], "]"}]}]}], 
+                 "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}],
+               ",", " ", 
+              RowBox[{"i", "++"}]}], " ", "\[IndentingNewLine]", "}"}]}], 
+           "\[IndentingNewLine]", "]"}], ",", 
+          RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"bestValueVector", " ", "=", 
+            RowBox[{"Append", "[", 
+             RowBox[{"bestValueVector", ",", "bestValue"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"bestPositionVector", " ", "=", 
+            RowBox[{"Append", "[", " ", 
+             RowBox[{"bestPositionVector", ",", "bestPosition"}], "]"}]}], 
+           " ", ";", "\[IndentingNewLine]", 
+           RowBox[{"bestParticlesValueVector", " ", "=", " ", 
+            RowBox[{"Append", "[", 
+             RowBox[{
+             "bestParticlesPositionVector", ",", "bestParticlesValue"}], 
+             "]"}]}], ";"}]}], "\[IndentingNewLine]", "}"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"bestValueVectorAver", " ", "=", " ", 
+       RowBox[{"Append", "[", 
+        RowBox[{"bestValueVectorAver", ",", " ", "bestValueVector"}], "]"}]}],
+       ";", "\[IndentingNewLine]", 
+      RowBox[{"bestPositionVectorAver", " ", "=", " ", 
+       RowBox[{"Append", "[", 
+        RowBox[{"bestPositionVectorAver", ",", "bestPositionVector"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesValueVectorAver", " ", "=", "  ", 
+       RowBox[{"Append", "[", 
+        RowBox[{
+        "bestParticlesValueVectorAver", ",", "bestParticlesValueVector"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "@", "bestValueVector"}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"ListLinePlot", "[", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"Total", "/@", 
+     RowBox[{"Transpose", "@", "bestValueVectorAver"}]}], ")"}], "/", 
+   "counter"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Min", "@", "bestValueVectorAver"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Min", "@", 
+   RowBox[{"(", 
+    RowBox[{"Total", "/@", 
+     RowBox[{"Transpose", "@", "bestValueVectorAver"}]}], ")"}]}], "/", 
+  "counter"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"Total", "@", 
+     RowBox[{"(", 
+      RowBox[{"Min", "/@", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Position", "[", 
+           RowBox[{
+            RowBox[{
+            "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+             "\[RightDoubleBracket]"}], ",", 
+            RowBox[{"Min", "@", 
+             RowBox[{
+             "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+              "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", 
+           RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}],
+       ")"}]}], ")"}], "/", "100"}], "//", "N"}], "\[IndentingNewLine]", 
+ RowBox[{"Min", "@", 
+  RowBox[{"(", 
+   RowBox[{"Min", "/@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{
+         RowBox[{
+         "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+          "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Min", "@", 
+          RowBox[{
+          "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+           "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}], 
+   ")"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Max", "@", 
+  RowBox[{"(", 
+   RowBox[{"Min", "/@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{
+         RowBox[{
+         "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+          "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Min", "@", 
+          RowBox[{
+          "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+           "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}], 
+   ")"}]}]}], "Input",
+ CellChangeTimes->{{3.81747573407032*^9, 3.8174759415259047`*^9}, {
+   3.817475981255209*^9, 3.817476227562716*^9}, {3.817476267100273*^9, 
+   3.817476328567732*^9}, {3.817476374225841*^9, 3.81747653716537*^9}, {
+   3.817476593671611*^9, 3.817476901433127*^9}, {3.8174769571142683`*^9, 
+   3.8174771376984987`*^9}, {3.817477181211124*^9, 3.81747720561122*^9}, {
+   3.8174772626284122`*^9, 3.817477288529101*^9}, {3.817477367230628*^9, 
+   3.8174775494887457`*^9}, {3.817477584473344*^9, 3.817477590465631*^9}, {
+   3.81747763778762*^9, 3.817477638829073*^9}, {3.8174776723016853`*^9, 
+   3.817477743999214*^9}, {3.81747777984615*^9, 3.8174777835681267`*^9}, {
+   3.817477815686651*^9, 3.817477815873767*^9}, {3.817477909392974*^9, 
+   3.817477912826529*^9}, {3.817478020943446*^9, 3.817478114877681*^9}, {
+   3.817478212931066*^9, 3.817478216258315*^9}, {3.817478251179112*^9, 
+   3.817478251550207*^9}, {3.8174783675462093`*^9, 3.817478374380825*^9}, {
+   3.817478437230204*^9, 3.8174784375544987`*^9}, {3.8174784680899563`*^9, 
+   3.817478497248831*^9}, {3.817478531644549*^9, 3.8174785704389*^9}, {
+   3.817478618389598*^9, 3.81747863138822*^9}, {3.817478674178701*^9, 
+   3.817478682610065*^9}, {3.817478832093506*^9, 3.817478832506027*^9}, {
+   3.81747888272526*^9, 3.817478914314672*^9}, {3.817479290181369*^9, 
+   3.817479291974964*^9}, {3.817479336507963*^9, 3.817479342170227*^9}, {
+   3.8174793864321413`*^9, 3.817479402223743*^9}, {3.8174794412021914`*^9, 
+   3.8174794544151*^9}, {3.817479570660248*^9, 3.817479584095264*^9}, {
+   3.817479646574417*^9, 3.817479648859212*^9}, {3.817480060900751*^9, 
+   3.817480065515192*^9}, {3.817480098273913*^9, 3.817480180214341*^9}, {
+   3.817480309400828*^9, 3.8174803302545633`*^9}, {3.8174803980563917`*^9, 
+   3.817480429751886*^9}, {3.817480465251791*^9, 3.8174804704309683`*^9}, {
+   3.817480784109208*^9, 3.8174807965616827`*^9}, {3.817480937998271*^9, 
+   3.8174809860582647`*^9}, {3.817481026962517*^9, 3.817481031341585*^9}, {
+   3.817481152569569*^9, 3.817481171911088*^9}, {3.8174814117337523`*^9, 
+   3.817481470115479*^9}, 3.856350310769062*^9, {3.8563504699607058`*^9, 
+   3.856350480611813*^9}, {3.85635051677178*^9, 3.856350658973638*^9}, {
+   3.8563507092910357`*^9, 3.856350713851733*^9}, {3.856350755572157*^9, 
+   3.8563507627619047`*^9}, {3.856350841351081*^9, 3.8563508931508083`*^9}, {
+   3.85635108315744*^9, 3.8563511549296627`*^9}, {3.856351204177329*^9, 
+   3.8563512337620707`*^9}, {3.856351269823763*^9, 3.856351469964961*^9}, {
+   3.856351807930077*^9, 3.856351810422183*^9}, {3.856351899161221*^9, 
+   3.856351899568844*^9}, {3.856352328694672*^9, 3.8563523361475*^9}, 
+   3.85635239329993*^9, {3.8563525198284407`*^9, 3.8563525220972843`*^9}, {
+   3.856352671989551*^9, 3.856352739598246*^9}, {3.856352782542425*^9, 
+   3.856352795237824*^9}, {3.856431675957356*^9, 3.856431676113846*^9}, {
+   3.856433747512712*^9, 3.8564337562558393`*^9}, {3.856433841817327*^9, 
+   3.8564339032009487`*^9}, 3.856433978589343*^9, {3.856434741850602*^9, 
+   3.856434747774309*^9}, {3.85643481462668*^9, 3.856434838403222*^9}, 
+   3.856435236202126*^9, {3.856435519189168*^9, 3.8564355265007677`*^9}, {
+   3.856436353712019*^9, 3.856436353981792*^9}, 3.8564372904309483`*^9, {
+   3.856438368238851*^9, 3.856438369925913*^9}, {3.8564385542803926`*^9, 
+   3.8564385577559147`*^9}, {3.85653464290211*^9, 3.856534659951882*^9}, {
+   3.8565346966349087`*^9, 3.8565347195023537`*^9}, {3.85653480609795*^9, 
+   3.856534825935083*^9}, 3.8565351932552958`*^9, {3.856535336906557*^9, 
+   3.8565353370188007`*^9}, {3.8565355529521093`*^9, 3.8565355533440313`*^9}, 
+   3.856535971585968*^9, {3.856625524978856*^9, 3.8566256371993637`*^9}, {
+   3.8566264546508007`*^9, 3.8566264929274178`*^9}, {3.85662654582998*^9, 
+   3.856626548074957*^9}, {3.85662906912825*^9, 3.856629106901183*^9}, 
+   3.856682527573044*^9, {3.856682565387792*^9, 3.856682583939384*^9}, {
+   3.856682654105413*^9, 3.856682664187172*^9}, 3.856707289407777*^9, 
+   3.856707338757081*^9, {3.856707390880715*^9, 3.8567074176357393`*^9}, {
+   3.856707533573374*^9, 3.856707533939623*^9}, {3.856707855399357*^9, 
+   3.856707855699058*^9}},
+ CellLabel->"In[56]:=",ExpressionUUID->"de1e0037-a5d4-49f3-9760-890784a0b758"],
+
+Cell["Classical algorithm for the sphere function", "Text",
+ CellChangeTimes->{{3.856351727756556*^9, 3.856351795980196*^9}, {
+   3.856352880748362*^9, 3.856352883058057*^9}, {3.856626041110581*^9, 
+   3.856626042638257*^9}, 3.856682598745082*^9},
+ Background->RGBColor[
+  0.9, 1, 1],ExpressionUUID->"b0fe9a20-c396-42fe-a068-71b9835ae122"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bestValueVector", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestPositionVector", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestParticlesPositionVector", " ", "=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestValueVectorAver", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestPositionVectorAver", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestParticlesValueVectorAver", "  ", "=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Timing", "[", 
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"counter", " ", "=", " ", "1"}], ",", " ", 
+    RowBox[{"counter", " ", "<=", "100"}], ",", " ", 
+    RowBox[{"counter", "++"}], ",", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"iterationAmount", " ", "=", " ", "100"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"variablesAmount", " ", "=", " ", "2"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"particlesAmount", " ", "=", "1000"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"pMin", " ", "=", " ", 
+      RowBox[{"-", "1000"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"pMax", " ", "=", " ", "1000"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"k", "=", "1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"w", " ", "=", " ", "1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"c1", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"c2", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"particlesPosition", " ", "=", " ", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"RandomReal", "[", 
+         RowBox[{"{", 
+          RowBox[{"pMin", ",", "pMax"}], "}"}], "]"}], ",", " ", 
+        "particlesAmount", ",", " ", "variablesAmount"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"particlesVelocity", " ", "=", " ", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", " ", "particlesAmount", ",", "variablesAmount"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"particlesValue", " ", "=", 
+      RowBox[{"sphere", "[", 
+       RowBox[{
+       "variablesAmount", ",", "particlesAmount", ",", "particlesPosition"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"bestValue", " ", "=", " ", 
+      RowBox[{"Min", "@", "particlesValue"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"bestPosition", " ", "=", " ", 
+      RowBox[{"Part", "[", 
+       RowBox[{"particlesPosition", ",", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"Flatten", "@", " ", 
+           RowBox[{"Position", "[", 
+            RowBox[{"particlesValue", ",", "bestValue"}], "]"}]}], ")"}], 
+         "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"bestParticlesValue", "=", " ", "particlesValue"}], " ", ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"bestParticlesPosition", " ", "=", "particlesPosition"}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"bestValueVector", " ", "=", " ", 
+      RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"bestPositionVector", " ", "=", " ", 
+      RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"bestParticlesPositionVector", " ", "=", " ", 
+      RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"k", " ", "=", " ", "1"}], ",", 
+       RowBox[{"k", " ", "<", " ", 
+        RowBox[{"iterationAmount", "-", "1"}]}], ",", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"For", "[", 
+          RowBox[{
+           RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+           RowBox[{"i", " ", "\[LessEqual]", " ", "particlesAmount"}], ",", 
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"For", "[", 
+              RowBox[{
+               RowBox[{"j", "=", " ", "1"}], ",", " ", 
+               RowBox[{"j", "\[LessEqual]", " ", "variablesAmount"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"{", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Part", "[", 
+                   RowBox[{"particlesVelocity", ",", "i", ",", "j"}], "]"}], 
+                  "=", " ", 
+                  RowBox[{"(", 
+                   RowBox[{
+                    RowBox[{"w", "*", " ", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], 
+                    "]"}]}], " ", "+", " ", 
+                    RowBox[{"c1", " ", "*", 
+                    RowBox[{"RandomReal", "[", "]"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesPosition", ",", "i", ",", "j"}], 
+                    "]"}], "-", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], 
+                    "]"}]}], ")"}]}], "+", 
+                    RowBox[{"c2", "*", " ", 
+                    RowBox[{"RandomReal", "[", "]"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"bestPosition", ",", "j"}], "]"}], "-", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], 
+                    "]"}]}], ")"}]}]}], ")"}]}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"d", "=", " ", 
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                   "+", 
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], 
+                    "]"}]}]}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"If", "[", 
+                  RowBox[{
+                   RowBox[{"d", "<", "pMin"}], ",", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "pMin"}], ",", "\[IndentingNewLine]", 
+                   RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"d", ">", "pMax"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "pMax"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "d"}]}], "]"}]}], "\[IndentingNewLine]", 
+                  "]"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"j", "++"}]}], "\[IndentingNewLine]", "}"}]}], 
+              "\[IndentingNewLine]", "]"}], ",", " ", 
+             RowBox[{"i", "++"}]}], "\[IndentingNewLine]", "}"}]}], 
+          "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"particlesValue", " ", "=", " ", 
+          RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"particlesValue", " ", "=", " ", 
+          RowBox[{"sphere", "[", 
+           RowBox[{
+           "variablesAmount", ",", "particlesAmount", ",", 
+            "particlesPosition"}], "]"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"For", "[", 
+          RowBox[{
+           RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+           RowBox[{"i", " ", "\[LessEqual]", " ", "particlesAmount"}], ",", 
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"t", " ", "=", " ", 
+              RowBox[{"Part", "[", 
+               RowBox[{"particlesValue", ",", "i"}], "]"}]}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"Part", "[", 
+                 RowBox[{"bestParticlesValue", ",", "i"}], "]"}], ">", " ", 
+                "t"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"{", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Part", "[", 
+                   RowBox[{"bestParticlesValue", ",", "i"}], "]"}], "=", " ", 
+                  "t"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"Part", "[", 
+                   RowBox[{"bestParticlesPosition", ",", " ", "i"}], "]"}], 
+                  " ", "=", " ", 
+                  RowBox[{"Part", "[", 
+                   RowBox[{"particlesPosition", ",", "i"}], "]"}]}]}], 
+                "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"bestValue", " ", ">", " ", "t"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"bestValue", " ", "=", " ", "t"}], ",", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"bestPosition", " ", "=", " ", 
+                  RowBox[{"Part", "[", 
+                   RowBox[{"particlesPosition", ",", "i"}], "]"}]}]}], 
+                "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}], 
+             ",", " ", 
+             RowBox[{"i", "++"}]}], " ", "\[IndentingNewLine]", "}"}]}], 
+          "\[IndentingNewLine]", "]"}], ",", 
+         RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"bestValueVector", " ", "=", 
+           RowBox[{"Append", "[", 
+            RowBox[{"bestValueVector", ",", "bestValue"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"bestPositionVector", " ", "=", 
+           RowBox[{"Append", "[", " ", 
+            RowBox[{"bestPositionVector", ",", "bestPosition"}], "]"}]}], " ",
+           ";", "\[IndentingNewLine]", 
+          RowBox[{"bestParticlesValueVector", " ", "=", " ", 
+           RowBox[{"Append", "[", 
+            RowBox[{
+            "bestParticlesPositionVector", ",", "bestParticlesValue"}], 
+            "]"}]}], ";"}]}], "\[IndentingNewLine]", "}"}]}], 
+      "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"bestValueVectorAver", " ", "=", " ", 
+      RowBox[{"Append", "[", 
+       RowBox[{"bestValueVectorAver", ",", " ", "bestValueVector"}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"bestPositionVectorAver", " ", "=", " ", 
+      RowBox[{"Append", "[", 
+       RowBox[{"bestPositionVectorAver", ",", "bestPositionVector"}], "]"}]}],
+      ";", "\[IndentingNewLine]", 
+     RowBox[{"bestParticlesValueVectorAver", " ", "=", "  ", 
+      RowBox[{"Append", "[", 
+       RowBox[{
+       "bestParticlesValueVectorAver", ",", "bestParticlesValueVector"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Print", "@", "bestValueVector"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"ListLinePlot", "[", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"Total", "/@", 
+     RowBox[{"Transpose", "@", "bestValueVectorAver"}]}], ")"}], "/", 
+   "counter"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Min", "@", "bestValueVectorAver"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Min", "@", 
+   RowBox[{"(", 
+    RowBox[{"Total", "/@", 
+     RowBox[{"Transpose", "@", "bestValueVectorAver"}]}], ")"}]}], "/", 
+  "counter"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"Total", "@", 
+     RowBox[{"(", 
+      RowBox[{"Min", "/@", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Position", "[", 
+           RowBox[{
+            RowBox[{
+            "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+             "\[RightDoubleBracket]"}], ",", 
+            RowBox[{"Min", "@", 
+             RowBox[{
+             "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+              "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", 
+           RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}],
+       ")"}]}], ")"}], "/", "100"}], "//", "N"}], "\[IndentingNewLine]", 
+ RowBox[{"Min", "@", 
+  RowBox[{"(", 
+   RowBox[{"Min", "/@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{
+         RowBox[{
+         "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+          "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Min", "@", 
+          RowBox[{
+          "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+           "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}], 
+   ")"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Max", "@", 
+   RowBox[{"(", 
+    RowBox[{"Min", "/@", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Position", "[", 
+         RowBox[{
+          RowBox[{
+          "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+           "\[RightDoubleBracket]"}], ",", 
+          RowBox[{"Min", "@", 
+           RowBox[{
+           "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+            "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+       RowBox[{"Range", "[", 
+        RowBox[{"1", ",", 
+         RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}], 
+    ")"}]}], "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.856352915866685*^9, 3.856352936092896*^9}, {
+   3.856443354530908*^9, 3.856443354977448*^9}, 3.856443766013897*^9, {
+   3.856443950460971*^9, 3.856443952044962*^9}, {3.856444453652841*^9, 
+   3.8564444540900097`*^9}, 3.85644515412449*^9, {3.8565361854715443`*^9, 
+   3.856536238448448*^9}, {3.8565363191783457`*^9, 3.8565363235212297`*^9}, 
+   3.8565367445385933`*^9, {3.856537029552442*^9, 3.8565370296735907`*^9}, {
+   3.8565373273437567`*^9, 3.8565373283576937`*^9}, {3.856682601090357*^9, 
+   3.856682617583067*^9}, {3.856682677725613*^9, 
+   3.856682687260182*^9}},ExpressionUUID->"4a1bf75b-fc19-460d-bf0a-\
+51d49676fb1f"],
+
+Cell["Classic algorithm for the Beale function", "Text",
+ CellChangeTimes->{{3.856351727756556*^9, 3.856351795980196*^9}, {
+  3.856352880748362*^9, 3.856352883058057*^9}, {3.856352953372635*^9, 
+  3.8563529590305223`*^9}, {3.8566826324312162`*^9, 3.856682637238366*^9}},
+ Background->RGBColor[
+  0.9, 1, 1],ExpressionUUID->"96cba6be-fe74-4fdb-8467-6ed106b8f587"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bestValueVector", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestPositionVector", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestParticlesPositionVector", " ", "=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestValueVectorAver", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestPositionVectorAver", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestParticlesValueVectorAver", "  ", "=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Timing", "[", "\[IndentingNewLine]", 
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"counter", " ", "=", " ", "1"}], ",", " ", 
+     RowBox[{"counter", " ", "<=", "100"}], ",", " ", 
+     RowBox[{"counter", "++"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"iterationAmount", " ", "=", " ", "100"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"variablesAmount", " ", "=", " ", "2"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"particlesAmount", " ", "=", " ", "1000"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"pMin", " ", "=", " ", 
+       RowBox[{"-", "4.5"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"pMax", " ", "=", " ", "4.5"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"k", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"w", " ", "=", " ", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"c1", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"c2", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"particlesPosition", " ", "=", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"RandomReal", "[", 
+          RowBox[{"{", 
+           RowBox[{"pMin", ",", "pMax"}], "}"}], "]"}], ",", " ", 
+         "particlesAmount", ",", " ", "variablesAmount"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"particlesVelocity", " ", "=", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{"0", ",", " ", "particlesAmount", ",", "variablesAmount"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"particlesValue", " ", "=", 
+       RowBox[{"bill", "[", 
+        RowBox[{"particlesAmount", ",", "particlesPosition"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"bestValue", " ", "=", " ", 
+       RowBox[{"Min", "@", "particlesValue"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestPosition", " ", "=", " ", 
+       RowBox[{"Part", "[", 
+        RowBox[{"particlesPosition", ",", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"Flatten", "@", " ", 
+            RowBox[{"Position", "[", 
+             RowBox[{"particlesValue", ",", "bestValue"}], "]"}]}], ")"}], 
+          "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesValue", "=", " ", "particlesValue"}], " ", ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesPosition", " ", "=", "particlesPosition"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"bestValueVector", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestPositionVector", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesPositionVector", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"k", " ", "=", " ", "1"}], ",", 
+        RowBox[{"k", " ", "<", " ", 
+         RowBox[{"iterationAmount", "-", "1"}]}], ",", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+            RowBox[{"i", " ", "\[LessEqual]", " ", "particlesAmount"}], ",", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"For", "[", 
+               RowBox[{
+                RowBox[{"j", "=", " ", "1"}], ",", " ", 
+                RowBox[{"j", "\[LessEqual]", " ", "variablesAmount"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{"{", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], "]"}], 
+                   "=", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"w", "*", " ", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], 
+                    "]"}]}], " ", "+", " ", 
+                    RowBox[{"c1", " ", "*", 
+                    RowBox[{"RandomReal", "[", "]"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesPosition", ",", "i", ",", "j"}], 
+                    "]"}], "-", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], 
+                    "]"}]}], ")"}]}], "+", 
+                    RowBox[{"c2", "*", " ", 
+                    RowBox[{"RandomReal", "[", "]"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"bestPosition", ",", "j"}], "]"}], "-", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], 
+                    "]"}]}], ")"}]}]}], ")"}]}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"d", "=", " ", 
+                   RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    "+", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], 
+                    "]"}]}]}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{"d", "<", "pMin"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "pMin"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"d", ">", "pMax"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "pMax"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "d"}]}], "]"}]}], "\[IndentingNewLine]", 
+                   "]"}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"j", "++"}]}], "\[IndentingNewLine]", "}"}]}], 
+               "\[IndentingNewLine]", "]"}], ",", " ", 
+              RowBox[{"i", "++"}]}], "\[IndentingNewLine]", "}"}]}], 
+           "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+          "\[IndentingNewLine]", 
+          RowBox[{"particlesValue", " ", "=", " ", 
+           RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"particlesValue", " ", "=", " ", 
+           RowBox[{"bill", "[", 
+            RowBox[{"particlesAmount", ",", "particlesPosition"}], "]"}]}], 
+          ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+            RowBox[{"i", " ", "\[LessEqual]", " ", "particlesAmount"}], ",", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"t", " ", "=", " ", 
+               RowBox[{"Part", "[", 
+                RowBox[{"particlesValue", ",", "i"}], "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Part", "[", 
+                  RowBox[{"bestParticlesValue", ",", "i"}], "]"}], ">", " ", 
+                 "t"}], ",", "\[IndentingNewLine]", 
+                RowBox[{"{", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesValue", ",", "i"}], "]"}], "=", " ",
+                    "t"}], ",", "\[IndentingNewLine]", 
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesPosition", ",", " ", "i"}], "]"}], 
+                   " ", "=", " ", 
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i"}], "]"}]}]}], 
+                 "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}],
+               ",", "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{"bestValue", " ", ">", " ", "t"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"bestValue", " ", "=", " ", "t"}], ",", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"bestPosition", " ", "=", " ", 
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i"}], "]"}]}]}], 
+                 "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}],
+               ",", " ", 
+              RowBox[{"i", "++"}]}], " ", "\[IndentingNewLine]", "}"}]}], 
+           "\[IndentingNewLine]", "]"}], ",", 
+          RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"bestValueVector", " ", "=", 
+            RowBox[{"Append", "[", 
+             RowBox[{"bestValueVector", ",", "bestValue"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"bestPositionVector", " ", "=", 
+            RowBox[{"Append", "[", " ", 
+             RowBox[{"bestPositionVector", ",", "bestPosition"}], "]"}]}], 
+           " ", ";", "\[IndentingNewLine]", 
+           RowBox[{"bestParticlesValueVector", " ", "=", " ", 
+            RowBox[{"Append", "[", 
+             RowBox[{
+             "bestParticlesPositionVector", ",", "bestParticlesValue"}], 
+             "]"}]}], ";"}]}], "\[IndentingNewLine]", "}"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"bestValueVectorAver", " ", "=", " ", 
+       RowBox[{"Append", "[", 
+        RowBox[{"bestValueVectorAver", ",", " ", "bestValueVector"}], "]"}]}],
+       ";", "\[IndentingNewLine]", 
+      RowBox[{"bestPositionVectorAver", " ", "=", " ", 
+       RowBox[{"Append", "[", 
+        RowBox[{"bestPositionVectorAver", ",", "bestPositionVector"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesValueVectorAver", " ", "=", "  ", 
+       RowBox[{"Append", "[", 
+        RowBox[{
+        "bestParticlesValueVectorAver", ",", "bestParticlesValueVector"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "@", "bestValueVector"}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"ListLinePlot", "[", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"Total", "/@", 
+     RowBox[{"Transpose", "@", "bestValueVectorAver"}]}], ")"}], "/", 
+   "counter"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Min", "@", "bestValueVectorAver"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Min", "@", 
+   RowBox[{"(", 
+    RowBox[{"Total", "/@", 
+     RowBox[{"Transpose", "@", "bestValueVectorAver"}]}], ")"}]}], "/", 
+  "counter"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"Total", "@", 
+     RowBox[{"(", 
+      RowBox[{"Min", "/@", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Position", "[", 
+           RowBox[{
+            RowBox[{
+            "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+             "\[RightDoubleBracket]"}], ",", 
+            RowBox[{"Min", "@", 
+             RowBox[{
+             "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+              "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", 
+           RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}],
+       ")"}]}], ")"}], "/", "100"}], "//", "N"}], "\[IndentingNewLine]", 
+ RowBox[{"Min", "@", 
+  RowBox[{"(", 
+   RowBox[{"Min", "/@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{
+         RowBox[{
+         "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+          "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Min", "@", 
+          RowBox[{
+          "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+           "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}], 
+   ")"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Max", "@", 
+  RowBox[{"(", 
+   RowBox[{"Min", "/@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{
+         RowBox[{
+         "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+          "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Min", "@", 
+          RowBox[{
+          "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+           "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}], 
+   ")"}]}]}], "Input",
+ CellChangeTimes->{{3.85635298241054*^9, 3.856353035185358*^9}, {
+   3.8563535384072857`*^9, 3.856353560151078*^9}, {3.856443347141151*^9, 
+   3.856443350900901*^9}, {3.856532821905431*^9, 3.856532822661972*^9}, {
+   3.85653785908941*^9, 3.8565378828191137`*^9}, {3.856537952646861*^9, 
+   3.856537961322748*^9}, 3.856538159409848*^9, {3.856538312176427*^9, 
+   3.856538312429793*^9}, {3.8565386464614697`*^9, 3.856538646756947*^9}, 
+   3.856682641521536*^9, {3.856682699190422*^9, 
+   3.85668272424792*^9}},ExpressionUUID->"6b646ce7-9086-48c1-bdac-\
+00bab7650d3a"],
+
+Cell["Classical algorithm for the Booth function", "Text",
+ CellChangeTimes->{{3.856351727756556*^9, 3.856351795980196*^9}, {
+   3.856352880748362*^9, 3.856352883058057*^9}, {3.856352953372635*^9, 
+   3.8563529590305223`*^9}, {3.856532807746688*^9, 3.8565328102972193`*^9}, 
+   3.856682742925251*^9},
+ Background->RGBColor[
+  0.9, 1, 1],ExpressionUUID->"5c0ff323-91be-4497-8486-87a86a1ecdfb"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bestValueVector", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestPositionVector", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestParticlesPositionVector", " ", "=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestValueVectorAver", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestPositionVectorAver", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestParticlesValueVectorAver", "  ", "=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Timing", "[", "\[IndentingNewLine]", 
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"counter", " ", "=", " ", "1"}], ",", " ", 
+     RowBox[{"counter", " ", "<=", "100"}], ",", " ", 
+     RowBox[{"counter", "++"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"iterationAmount", " ", "=", " ", "100"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"variablesAmount", " ", "=", " ", "2"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"particlesAmount", " ", "=", " ", "500"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"pMin", " ", "=", " ", 
+       RowBox[{"-", "10"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"pMax", " ", "=", " ", "10"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"k", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"w", " ", "=", " ", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"c1", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"c2", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"particlesPosition", " ", "=", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"RandomReal", "[", 
+          RowBox[{"{", 
+           RowBox[{"pMin", ",", "pMax"}], "}"}], "]"}], ",", " ", 
+         "particlesAmount", ",", " ", "variablesAmount"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"particlesVelocity", " ", "=", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{"0", ",", " ", "particlesAmount", ",", "variablesAmount"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"particlesValue", " ", "=", 
+       RowBox[{"but", "[", 
+        RowBox[{"particlesAmount", ",", "particlesPosition"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"bestValue", " ", "=", " ", 
+       RowBox[{"Min", "@", "particlesValue"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestPosition", " ", "=", " ", 
+       RowBox[{"Part", "[", 
+        RowBox[{"particlesPosition", ",", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"Flatten", "@", " ", 
+            RowBox[{"Position", "[", 
+             RowBox[{"particlesValue", ",", "bestValue"}], "]"}]}], ")"}], 
+          "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesValue", "=", " ", "particlesValue"}], " ", ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesPosition", " ", "=", "particlesPosition"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"bestValueVector", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestPositionVector", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesPositionVector", " ", "=", " ", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"k", " ", "=", " ", "1"}], ",", 
+        RowBox[{"k", " ", "<", " ", 
+         RowBox[{"iterationAmount", "-", "1"}]}], ",", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+            RowBox[{"i", " ", "\[LessEqual]", " ", "particlesAmount"}], ",", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"For", "[", 
+               RowBox[{
+                RowBox[{"j", "=", " ", "1"}], ",", " ", 
+                RowBox[{"j", "\[LessEqual]", " ", "variablesAmount"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{"{", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], "]"}], 
+                   "=", " ", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"w", "*", " ", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], 
+                    "]"}]}], " ", "+", " ", 
+                    RowBox[{"c1", " ", "*", 
+                    RowBox[{"RandomReal", "[", "]"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesPosition", ",", "i", ",", "j"}], 
+                    "]"}], "-", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], 
+                    "]"}]}], ")"}]}], "+", 
+                    RowBox[{"c2", "*", " ", 
+                    RowBox[{"RandomReal", "[", "]"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"bestPosition", ",", "j"}], "]"}], "-", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], 
+                    "]"}]}], ")"}]}]}], ")"}]}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"d", "=", " ", 
+                   RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    "+", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], 
+                    "]"}]}]}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{"d", "<", "pMin"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "pMin"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"d", ">", "pMax"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "pMax"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "d"}]}], "]"}]}], "\[IndentingNewLine]", 
+                   "]"}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"j", "++"}]}], "\[IndentingNewLine]", "}"}]}], 
+               "\[IndentingNewLine]", "]"}], ",", " ", 
+              RowBox[{"i", "++"}]}], "\[IndentingNewLine]", "}"}]}], 
+           "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"particlesValue", " ", "=", " ", 
+           RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"particlesValue", " ", "=", " ", 
+           RowBox[{"but", "[", 
+            RowBox[{"particlesAmount", ",", "particlesPosition"}], "]"}]}], 
+          ",", "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+            RowBox[{"i", " ", "\[LessEqual]", " ", "particlesAmount"}], ",", 
+            RowBox[{"{", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"t", " ", "=", " ", 
+               RowBox[{"Part", "[", 
+                RowBox[{"particlesValue", ",", "i"}], "]"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Part", "[", 
+                  RowBox[{"bestParticlesValue", ",", "i"}], "]"}], ">", " ", 
+                 "t"}], ",", "\[IndentingNewLine]", 
+                RowBox[{"{", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesValue", ",", "i"}], "]"}], "=", " ",
+                    "t"}], ",", "\[IndentingNewLine]", 
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesPosition", ",", " ", "i"}], "]"}], 
+                   " ", "=", " ", 
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i"}], "]"}]}]}], 
+                 "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}],
+               ",", "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{"bestValue", " ", ">", " ", "t"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"bestValue", " ", "=", " ", "t"}], ",", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"bestPosition", " ", "=", " ", 
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i"}], "]"}]}]}], 
+                 "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}],
+               ",", " ", 
+              RowBox[{"i", "++"}]}], " ", "\[IndentingNewLine]", "}"}]}], 
+           "\[IndentingNewLine]", "]"}], ",", 
+          RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"bestValueVector", " ", "=", 
+            RowBox[{"Append", "[", 
+             RowBox[{"bestValueVector", ",", "bestValue"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"bestPositionVector", " ", "=", 
+            RowBox[{"Append", "[", " ", 
+             RowBox[{"bestPositionVector", ",", "bestPosition"}], "]"}]}], 
+           " ", ";", "\[IndentingNewLine]", 
+           RowBox[{"bestParticlesValueVector", " ", "=", " ", 
+            RowBox[{"Append", "[", 
+             RowBox[{
+             "bestParticlesPositionVector", ",", "bestParticlesValue"}], 
+             "]"}]}], ";"}]}], "\[IndentingNewLine]", "}"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"bestValueVectorAver", " ", "=", " ", 
+       RowBox[{"Append", "[", 
+        RowBox[{"bestValueVectorAver", ",", " ", "bestValueVector"}], "]"}]}],
+       ";", "\[IndentingNewLine]", 
+      RowBox[{"bestPositionVectorAver", " ", "=", " ", 
+       RowBox[{"Append", "[", 
+        RowBox[{"bestPositionVectorAver", ",", "bestPositionVector"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"bestParticlesValueVectorAver", " ", "=", "  ", 
+       RowBox[{"Append", "[", 
+        RowBox[{
+        "bestParticlesValueVectorAver", ",", "bestParticlesValueVector"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "@", "bestValueVector"}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"ListLinePlot", "[", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"Total", "/@", 
+     RowBox[{"Transpose", "@", "bestValueVectorAver"}]}], ")"}], "/", 
+   "counter"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Min", "@", "bestValueVectorAver"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Min", "@", 
+   RowBox[{"(", 
+    RowBox[{"Total", "/@", 
+     RowBox[{"Transpose", "@", "bestValueVectorAver"}]}], ")"}]}], "/", 
+  "counter"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"Total", "@", 
+     RowBox[{"(", 
+      RowBox[{"Min", "/@", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Position", "[", 
+           RowBox[{
+            RowBox[{
+            "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+             "\[RightDoubleBracket]"}], ",", 
+            RowBox[{"Min", "@", 
+             RowBox[{
+             "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+              "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", 
+           RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}],
+       ")"}]}], ")"}], "/", "100"}], "//", "N"}], "\[IndentingNewLine]", 
+ RowBox[{"Min", "@", 
+  RowBox[{"(", 
+   RowBox[{"Min", "/@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{
+         RowBox[{
+         "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+          "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Min", "@", 
+          RowBox[{
+          "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+           "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}], 
+   ")"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Max", "@", 
+  RowBox[{"(", 
+   RowBox[{"Min", "/@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{
+         RowBox[{
+         "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+          "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Min", "@", 
+          RowBox[{
+          "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+           "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}], 
+   ")"}]}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.8565328625239353`*^9, 3.856532868900467*^9}, {
+   3.856538353162249*^9, 3.85653838365287*^9}, 3.856609955663042*^9, 
+   3.856611656573462*^9, {3.856611773624398*^9, 3.856611773774159*^9}, {
+   3.85661372753559*^9, 3.856613727724469*^9}, 3.856613849041851*^9, {
+   3.856614508321754*^9, 3.856614508730035*^9}, {3.856682746147595*^9, 
+   3.856682772143942*^9}},ExpressionUUID->"13ab76d7-8055-43cd-864e-\
+724c63ae8ced"],
+
+Cell["Classical algorithm for the Ackley function", "Text",
+ CellChangeTimes->{{3.856351727756556*^9, 3.856351795980196*^9}, {
+   3.856352880748362*^9, 3.856352883058057*^9}, {3.856352953372635*^9, 
+   3.8563529590305223`*^9}, {3.856532807746688*^9, 3.8565328102972193`*^9}, {
+   3.856533879436406*^9, 3.85653388116605*^9}, 3.856682806693096*^9},
+ Background->RGBColor[
+  0.9, 1, 1],ExpressionUUID->"d8ca3da3-0370-49bd-b07e-41eab33690f4"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bestValueVector", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestPositionVector", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestParticlesPositionVector", " ", "=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestValueVectorAver", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bestPositionVectorAver", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestParticlesValueVectorAver", "  ", "=", " ", 
+    RowBox[{"{", "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Timing", "[", "\[IndentingNewLine]", 
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"counter", " ", "=", " ", "1"}], ",", " ", 
+    RowBox[{"counter", " ", "<=", "100"}], ",", " ", 
+    RowBox[{"counter", "++"}], ",", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"iterationAmount", " ", "=", " ", "100"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"variablesAmount", " ", "=", " ", "2"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"particlesAmount", " ", "=", " ", "1000"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"pMin", " ", "=", " ", 
+      RowBox[{"-", "5"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"pMax", " ", "=", " ", "5"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"k", "=", "1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"w", " ", "=", " ", "1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"c1", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"c2", " ", "=", "1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"particlesPosition", " ", "=", " ", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"RandomReal", "[", 
+         RowBox[{"{", 
+          RowBox[{"pMin", ",", "pMax"}], "}"}], "]"}], ",", " ", 
+        "particlesAmount", ",", " ", "variablesAmount"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"particlesVelocity", " ", "=", " ", 
+      RowBox[{"Table", "[", 
+       RowBox[{"0", ",", " ", "particlesAmount", ",", "variablesAmount"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"particlesValue", " ", "=", 
+      RowBox[{"ekl", "[", 
+       RowBox[{"particlesAmount", ",", "particlesPosition"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"bestValue", " ", "=", " ", 
+      RowBox[{"Min", "@", "particlesValue"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"bestPosition", " ", "=", " ", 
+      RowBox[{"Part", "[", 
+       RowBox[{"particlesPosition", ",", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"Flatten", "@", " ", 
+           RowBox[{"Position", "[", 
+            RowBox[{"particlesValue", ",", "bestValue"}], "]"}]}], ")"}], 
+         "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"bestParticlesValue", "=", " ", "particlesValue"}], " ", ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"bestParticlesPosition", " ", "=", "particlesPosition"}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"bestValueVector", " ", "=", " ", 
+      RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"bestPositionVector", " ", "=", " ", 
+      RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"bestParticlesPositionVector", " ", "=", " ", 
+      RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"k", " ", "=", " ", "1"}], ",", 
+       RowBox[{"k", " ", "<", " ", 
+        RowBox[{"iterationAmount", "-", "1"}]}], ",", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"For", "[", 
+          RowBox[{
+           RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+           RowBox[{"i", " ", "\[LessEqual]", " ", "particlesAmount"}], ",", 
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"For", "[", 
+              RowBox[{
+               RowBox[{"j", "=", " ", "1"}], ",", " ", 
+               RowBox[{"j", "\[LessEqual]", " ", "variablesAmount"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"{", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Part", "[", 
+                   RowBox[{"particlesVelocity", ",", "i", ",", "j"}], "]"}], 
+                  "=", " ", 
+                  RowBox[{"(", 
+                   RowBox[{
+                    RowBox[{"w", "*", " ", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], 
+                    "]"}]}], " ", "+", " ", 
+                    RowBox[{"c1", " ", "*", 
+                    RowBox[{"RandomReal", "[", "]"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"bestParticlesPosition", ",", "i", ",", "j"}], 
+                    "]"}], "-", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], 
+                    "]"}]}], ")"}]}], "+", 
+                    RowBox[{"c2", "*", " ", 
+                    RowBox[{"RandomReal", "[", "]"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"bestPosition", ",", "j"}], "]"}], "-", 
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], 
+                    "]"}]}], ")"}]}]}], ")"}]}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"d", "=", " ", 
+                  RowBox[{
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                   "+", 
+                   RowBox[{"Part", "[", 
+                    RowBox[{"particlesVelocity", ",", "i", ",", "j"}], 
+                    "]"}]}]}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"If", "[", 
+                  RowBox[{
+                   RowBox[{"d", "<", "pMin"}], ",", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "pMin"}], ",", "\[IndentingNewLine]", 
+                   RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"d", ">", "pMax"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "pMax"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Part", "[", 
+                    RowBox[{"particlesPosition", ",", "i", ",", "j"}], "]"}], 
+                    " ", "=", " ", "d"}]}], "]"}]}], "\[IndentingNewLine]", 
+                  "]"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"j", "++"}]}], "\[IndentingNewLine]", "}"}]}], 
+              "\[IndentingNewLine]", "]"}], ",", " ", 
+             RowBox[{"i", "++"}]}], "\[IndentingNewLine]", "}"}]}], 
+          "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+         "\[IndentingNewLine]", 
+         RowBox[{"particlesValue", " ", "=", " ", 
+          RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"particlesValue", " ", "=", " ", 
+          RowBox[{"ekl", "[", 
+           RowBox[{"particlesAmount", ",", "particlesPosition"}], "]"}]}], 
+         ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+         RowBox[{"For", "[", 
+          RowBox[{
+           RowBox[{"i", " ", "=", " ", "1"}], ",", " ", 
+           RowBox[{"i", " ", "\[LessEqual]", " ", "particlesAmount"}], ",", 
+           RowBox[{"{", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"t", " ", "=", " ", 
+              RowBox[{"Part", "[", 
+               RowBox[{"particlesValue", ",", "i"}], "]"}]}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"Part", "[", 
+                 RowBox[{"bestParticlesValue", ",", "i"}], "]"}], ">", " ", 
+                "t"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"{", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Part", "[", 
+                   RowBox[{"bestParticlesValue", ",", "i"}], "]"}], "=", " ", 
+                  "t"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"Part", "[", 
+                   RowBox[{"bestParticlesPosition", ",", " ", "i"}], "]"}], 
+                  " ", "=", " ", 
+                  RowBox[{"Part", "[", 
+                   RowBox[{"particlesPosition", ",", "i"}], "]"}]}]}], 
+                "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"bestValue", " ", ">", " ", "t"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"bestValue", " ", "=", " ", "t"}], ",", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"bestPosition", " ", "=", " ", 
+                  RowBox[{"Part", "[", 
+                   RowBox[{"particlesPosition", ",", "i"}], "]"}]}]}], 
+                "\[IndentingNewLine]", "}"}]}], "\[IndentingNewLine]", "]"}], 
+             ",", " ", 
+             RowBox[{"i", "++"}]}], " ", "\[IndentingNewLine]", "}"}]}], 
+          "\[IndentingNewLine]", "]"}], ",", 
+         RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"bestValueVector", " ", "=", 
+           RowBox[{"Append", "[", 
+            RowBox[{"bestValueVector", ",", "bestValue"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"bestPositionVector", " ", "=", 
+           RowBox[{"Append", "[", " ", 
+            RowBox[{"bestPositionVector", ",", "bestPosition"}], "]"}]}], " ",
+           ";", "\[IndentingNewLine]", 
+          RowBox[{"bestParticlesValueVector", " ", "=", " ", 
+           RowBox[{"Append", "[", 
+            RowBox[{
+            "bestParticlesPositionVector", ",", "bestParticlesValue"}], 
+            "]"}]}], ";"}]}], "\[IndentingNewLine]", "}"}]}], 
+      "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"bestValueVectorAver", " ", "=", " ", 
+      RowBox[{"Append", "[", 
+       RowBox[{"bestValueVectorAver", ",", " ", "bestValueVector"}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"bestPositionVectorAver", " ", "=", " ", 
+      RowBox[{"Append", "[", 
+       RowBox[{"bestPositionVectorAver", ",", "bestPositionVector"}], "]"}]}],
+      ";", "\[IndentingNewLine]", 
+     RowBox[{"bestParticlesValueVectorAver", " ", "=", "  ", 
+      RowBox[{"Append", "[", 
+       RowBox[{
+       "bestParticlesValueVectorAver", ",", "bestParticlesValueVector"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Print", "@", "bestValueVector"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"ListLinePlot", "[", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"Total", "/@", 
+     RowBox[{"Transpose", "@", "bestValueVectorAver"}]}], ")"}], "/", 
+   "counter"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Min", "@", "bestValueVectorAver"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Min", "@", 
+   RowBox[{"(", 
+    RowBox[{"Total", "/@", 
+     RowBox[{"Transpose", "@", "bestValueVectorAver"}]}], ")"}]}], "/", 
+  "counter"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"Total", "@", 
+     RowBox[{"(", 
+      RowBox[{"Min", "/@", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Position", "[", 
+           RowBox[{
+            RowBox[{
+            "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+             "\[RightDoubleBracket]"}], ",", 
+            RowBox[{"Min", "@", 
+             RowBox[{
+             "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+              "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", 
+           RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}],
+       ")"}]}], ")"}], "/", "100"}], "//", "N"}], "\[IndentingNewLine]", 
+ RowBox[{"Min", "@", 
+  RowBox[{"(", 
+   RowBox[{"Min", "/@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{
+         RowBox[{
+         "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+          "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Min", "@", 
+          RowBox[{
+          "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+           "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}], 
+   ")"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Max", "@", 
+  RowBox[{"(", 
+   RowBox[{"Min", "/@", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Position", "[", 
+        RowBox[{
+         RowBox[{
+         "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+          "\[RightDoubleBracket]"}], ",", 
+         RowBox[{"Min", "@", 
+          RowBox[{
+          "bestValueVectorAver", "\[LeftDoubleBracket]", "#", 
+           "\[RightDoubleBracket]"}]}]}], "]"}], "&"}], "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{"1", ",", 
+        RowBox[{"Length", "@", "bestValueVectorAver"}]}], "]"}]}], ")"}]}], 
+   ")"}]}]}], "Input",
+ CellChangeTimes->{{3.8565339250010223`*^9, 3.8565339437318068`*^9}, {
+   3.856538331238049*^9, 3.856538347004981*^9}, 3.856610109299953*^9, 
+   3.856611462192144*^9, 3.8566148119426413`*^9, {3.8566149686619053`*^9, 
+   3.856614969022081*^9}, {3.8566152764240723`*^9, 3.856615277403463*^9}, {
+   3.856682810787174*^9, 3.8566828227925*^9}, {3.856683095878976*^9, 
+   3.856683102912531*^9}},ExpressionUUID->"7dc0d58e-eca1-4ef5-b67e-\
+66598915e269"]
+}, Open  ]]
+},
+WindowSize->{Full, Full},
+WindowMargins->{{Automatic, 0}, {Automatic, 11}},
+TaggingRules->{"TryRealOnly" -> False},
+FrontEndVersion->"13.0 for Mac OS X x86 (64-bit) (December 2, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"560f3baa-af48-4119-b6ec-4e1063c45ebb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 341, 5, 30, "Input",ExpressionUUID->"58dd254d-bfc8-4ff6-88ef-5cf4e2f8316f"],
+Cell[CellGroupData[{
+Cell[924, 29, 374, 6, 79, "Title",ExpressionUUID->"ecf01546-25d8-41e8-a9af-2cccce19ce35"],
+Cell[1301, 37, 239, 4, 51, "Text",ExpressionUUID->"bef247d5-be35-4551-954a-2de3a015a441"],
+Cell[1543, 43, 15972, 333, 1753, "Input",ExpressionUUID->"73e9e8ce-b9ed-4ccf-ac27-314ed04a80f3"],
+Cell[17518, 378, 319, 5, 51, "Text",ExpressionUUID->"a490920b-35c1-4b5e-8d3d-18751ed81cf9"],
+Cell[17840, 385, 18588, 384, 1858, "Input",ExpressionUUID->"de1e0037-a5d4-49f3-9760-890784a0b758"],
+Cell[36431, 771, 339, 5, 51, "Text",ExpressionUUID->"b0fe9a20-c396-42fe-a068-71b9835ae122"],
+Cell[36773, 778, 14689, 331, 1816, "Input",ExpressionUUID->"4a1bf75b-fc19-460d-bf0a-51d49676fb1f"],
+Cell[51465, 1111, 362, 5, 51, "Text",ExpressionUUID->"96cba6be-fe74-4fdb-8467-6ed106b8f587"],
+Cell[51830, 1118, 14761, 330, 1858, "Input",ExpressionUUID->"6b646ce7-9086-48c1-bdac-00bab7650d3a"],
+Cell[66594, 1450, 392, 6, 51, "Text",ExpressionUUID->"5c0ff323-91be-4497-8486-87a86a1ecdfb"],
+Cell[66989, 1458, 14595, 327, 1837, "Input",ExpressionUUID->"13ab76d7-8055-43cd-864e-724c63ae8ced"],
+Cell[81587, 1787, 438, 6, 51, "Text",ExpressionUUID->"d8ca3da3-0370-49bd-b07e-41eab33690f4"],
+Cell[82028, 1795, 14408, 326, 1837, "Input",ExpressionUUID->"7dc0d58e-eca1-4ef5-b67e-66598915e269"]
+}, Open  ]]
+}
+]
+*)
+
